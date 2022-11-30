@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import * as S from './styles.tsx'
+import Tab from './components/shared/tab/index';
+import Timer from './components/timer/index';
+import Stopwatch from './components/stopwatch/index';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   const [currentTab, setCurrentTab] = useState(0)
+
+   const paginationObject = {
+      0: <Timer/>,
+      1: <Stopwatch/>
+   }
+
+   return (
+      <S.MainContainer>
+
+         <S.TabsWrapper>
+            <Tab
+               title={'TIMER'}
+               active={currentTab === 0 ? true : false}
+               value={0}
+               stateMethod={setCurrentTab}
+            />
+            <Tab
+               title={'STOPWATCH'}
+               active={currentTab === 1 ? true : false}
+               value={1}
+               stateMethod={setCurrentTab}
+            />
+         </S.TabsWrapper>
+
+         {paginationObject[currentTab]}
+      </S.MainContainer>
+   );
 }
 
 export default App;
